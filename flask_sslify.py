@@ -8,7 +8,7 @@ YEAR_IN_SECS = 31536000
 class SSLify(object):
     """Secures your Flask App."""
 
-    def __init__(self, app=None, age=YEAR_IN_SECS, subdomains=False, permanent=False, skips=None):
+    def __init__(self, app=None, age=YEAR_IN_SECS, subdomains=False, permanent=False, skips=None, preload=False):
         self.app = app or current_app
         self.hsts_age = age
 
@@ -19,6 +19,7 @@ class SSLify(object):
         self.hsts_include_subdomains = subdomains or self.app.config['SSLIFY_SUBDOMAINS']
         self.permanent = permanent or self.app.config['SSLIFY_PERMANENT']
         self.skip_list = skips or self.app.config['SSLIFY_SKIPS']
+        self.hsts_include_preload = preload or self.app.config['SSLIFY_PRELOAD']
 
         if app is not None:
             self.init_app(app)
@@ -35,6 +36,9 @@ class SSLify(object):
 
         if self.hsts_include_subdomains:
             hsts_policy += '; includeSubDomains'
+
+        if self.hsts_include_preload:
+            hsts_policy += '; preload'
 
         return hsts_policy
 

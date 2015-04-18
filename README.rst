@@ -49,6 +49,14 @@ If you'd like to include subdomains in your HSTS policy, set the ``subdomains`` 
 
 Or by including ``SSLIFY_SUBDOMAINS`` in your app's config.
 
+If you'd like to include the preload flag in your HSTS policy, set the ``preload`` parameter::
+
+    sslify = SSLify(app, preload=True)
+
+
+Or by including ``SSLIFY_PRELOAD`` in your app's config. The preload flag is required if submitting
+an HSTS enabled domain to Chrome's HSTS preload list.
+
 
 HTTP 301 Redirects
 ------------------
@@ -64,7 +72,7 @@ Or by including ``SSLIFY_PERMANENT`` in your app's config.
 Exclude Certain Paths from Being Redirected
 -------------------------------------------
 You can exlude a path that starts with given string by including a list called ``skips``::
- 
+
      sslify = SSLify(app, skips=['mypath', 'anotherpath'])
 
 Or by including ``SSLIFY_SKIPS`` in your app's config.
@@ -76,8 +84,8 @@ Install
 Installation is simple too::
 
     $ pip install Flask-SSLify
-    
-    
+
+
 Security consideration using basic auth
 ---------------------------------------
 
